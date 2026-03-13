@@ -147,14 +147,6 @@ describe('Courses API', () => {
   describe('GET /api/courses/:id', () => {
     it('returns course details', async () => {
       Course.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnThis(),
-        // second .populate()
-        then: undefined,
-      });
-
-      // Simplify by chaining
-      const populateMock = jest.fn().mockReturnThis();
-      Course.findById = jest.fn().mockReturnValue({
         populate: jest.fn().mockImplementation(() => ({
           populate: jest.fn().mockResolvedValue(mockCourse),
         })),

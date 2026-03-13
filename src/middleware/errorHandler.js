@@ -4,7 +4,7 @@
  * Global error handler middleware.
  * Catches errors passed via next(err) and returns a structured JSON response.
  */
-const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused-vars
+const errorHandler = (err, req, res, next) => { // next is required for Express error handler signature
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Internal server error';
 

@@ -1,5 +1,6 @@
 'use strict';
 
+const mongoose = require('mongoose');
 const Attendance = require('../models/Attendance');
 const Session = require('../models/Session');
 const FaceProfile = require('../models/FaceProfile');
@@ -236,7 +237,7 @@ const getCourseSummary = async (req, res, next) => {
     const { courseId } = req.params;
 
     const summary = await Attendance.aggregate([
-      { $match: { course: require('mongoose').Types.ObjectId.createFromHexString(courseId) } },
+      { $match: { course: mongoose.Types.ObjectId.createFromHexString(courseId) } },
       {
         $group: {
           _id: '$student',
@@ -266,7 +267,6 @@ const getCourseSummary = async (req, res, next) => {
     ]);
 
     // Populate student info
-    const User = require('../models/User');
     const populated = await User.populate(summary, {
       path: '_id',
       select: 'name email studentId',
